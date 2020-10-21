@@ -1,0 +1,5 @@
+1. T(n) = c + nc
+2. T(n) = c + n*log2(n)
+3. T(n) = c + c*log3(n)
+4. T(n) = c + (n**3)/2
+5. T(n) = c + nlog(n)
