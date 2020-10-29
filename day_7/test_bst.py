@@ -1,0 +1,31 @@
+from datastructures.BinarySearchTree import BinarySearchTree
+
+def main():
+    bst = BinarySearchTree()
+    bst.put(21, "a")
+    bst.put(18, "b")
+    bst.put(10, "c")
+    bst.put(40, "d")
+    bst.put(8, "e")
+    bst.put(11, "f")
+    print("should be f: ", bst.get(11))
+    print("should be c: ", bst.get(10))
+    print("shouldn't be there: ", bst.get(9))
+    print("should be false: ", bst.hasKey(9))
+    print("should be true: ", bst.hasKey(8))
+    print("size should be 6: ", bst.size())
+    print("looking for key 40 (0 children) before deletion ", bst.hasKey(40))
+    bst.delete(40)
+    print("looking for key 40 after deletion ", bst.hasKey(40))
+    print("looking for root before deletion", bst.hasKey(21))
+    bst.delete(21)
+    print("looking for root after deletion", bst.hasKey(21))
+    print("deleted root, no more on right should bump up left 18: ", bst.root.key)
+    bst.delete(10)
+    print("deleted node with 2 children. looking for it: ", bst.hasKey(10))
+    bst.delete(11)
+    print("deleted node with 1 child. looking for it: ", bst.hasKey(11))
+    print("size should be 2: ", bst.size())
+
+
+main()
