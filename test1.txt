@@ -1,0 +1,82 @@
+Ella Neurohr
+Test #1
+CP307 Block 3 2020
+On my honor I have neither given nor received unauthorized aid on this exam. 
+
+1. Time complexities
+  a. O(nlogn)
+  b. O(n**2)
+  c. O(nlogn)
+  d. O(n**2)
+  e. O(nlogn)
+
+  f. O(1)
+  g. O(1)
+  h. O(n)
+
+  i. O(1)
+  j. O(logn)
+
+  k. O(1)
+  l. O(1)
+
+  m. O(1)
+  n. O(1)
+
+  o. O(1)
+  p. O(1)
+  q. O(1)
+  r. O(1)
+    ^^ unless there are collisions
+
+  s. O(logn)
+  t. O(logn)
+
+2. Max depth: 100 levels
+   Min depth: 7 levels
+
+3. O(1)
+
+4. A loop invariant must be true during initialization, before the first time the loop is executed,
+   in maintenance, before each loop, and at termination, after finishing the loop.
+
+5.  The tree is restructured by finding either the smallest node in the right subtree of
+    the node being deleted, or the largest node in the left subtree of the node being deleted.
+    This means moving right once and then left until the bottom of the tree, or, if there is no
+    left child to the initial right child, simply promote the right child. Would be reversed if
+    doing the largest on the left subtree.
+
+6. Because a heap will always insert the newest value from left to right at the bottom level of
+   the heap. If you were to use a linked list data structure it would be significantly harder to
+   find the next available location for insertion. If you are using a statically sized array you will
+   know exactly which index to insert at.
+
+7. T(n) = T(n/2) + c
+        = [T(n/4) + c] + c
+        = T(n/4) + 2c
+        = [T(n/8) + c] + 2c
+        = T(n/8) + 3
+        = T(n/n**k) + kc where k=log2(n), so 2**k=n
+        = T(n/n) + c*log2(n), where T(n/n) = T(1) = c
+        = c + c*log2(n)
+        = O(log(n))
+
+8. Proof by induction
+   Base case:
+      m = 1
+      1(1+1)(2(1)+1) / 6 = 1
+      The base case works
+   Inductive step:
+      Let's say the formula is correct for m = k, so m = k+1
+      Pixels(k) = k(k+1)(2k+1) / 6
+      Pixels(k+1) = Pixels(k) + (k+1)**2
+                  = [k(k+1)(2k+1) / 6] + (k+1)**2
+                  = [(2k**3 + k**2 + k) / 6] + k**2 + 2k + 1
+                  = [(2k**3 + k**2 + k) / 6] + [(2k**2 + 12k + 6) / 6]
+                  = (2k**3 + 9k**2 + 13k + 6) / 6 (A)
+      Pixels(k+1) = (k+1)(k+2)(2k+3) / 6
+                  = [k(2k**2 + 7k + 6) + (2k**2 + 7k + 6)] / 6
+                  = [2k**3 + 7k**2 + 6k + 2k**2 + 7k + 6] / 6
+                  = (2k**3 + 9k**2 + 13k + 6) / 6, which is equal to (A)
+      Therefor it has been proven that if the formula holds for m = k, it holds for m = k + 1.
+      By the principle of mathematical induction, this formula has been proven.
