@@ -10,22 +10,17 @@ class AVLTree(BinarySearchTree):
     def depthNode(self, node):
         # from geeks for geeks
         # https://www.geeksforgeeks.org/write-a-c-program-to-find-the-maximum-depth-or-height-of-a-tree/
-        # print("lord help me")
         if node == None:
             return 0
+        leftDepth = self.depthNode(node.left)
+        rightDepth = self.depthNode(node.right)
+        return max(leftDepth, rightDepth)+1
 
-            # Get the depth of the left and right subtree
-            # using recursion.
-        print("here????")
-        leftDepth = depthNode(node.left)
-        print("here????")
-        rightDepth = depthNode(node.right)
-
-  # Choose the larger one and add the root to it.
-        if leftDepth > rightDepth:
-            return leftDepth + 1
-        else:
-            return rightDepth + 1
+  # # Choose the larger one and add the root to it.
+  #       if leftDepth > rightDepth:
+  #           return leftDepth + 1
+  #       else:
+  #           return rightDepth + 1
         # print("doing this")
         # print(node)
         # if node is None:
@@ -48,12 +43,12 @@ class AVLTree(BinarySearchTree):
     def insert(self, key):
         new_node = BinarySearchTree.put(self, key, None)
         self.balanceTree(new_node, remove=False)
-        print("finishing balancing")
 
     def balanceTree(self, curr_node, remove=False):
-        print("here")
         path = []
         while curr_node != None:
+            print(curr_node)
+            print(curr_node.parent)
             balance = self.getNodeBalance(curr_node)
             if len(path) > 1:
                 if remove:
@@ -75,10 +70,10 @@ class AVLTree(BinarySearchTree):
                 else:
                         current = curr_node
                         child = path[-1]
-                        gradchild = path[-2]
+                        grandchild = path[-2]
 
                 if balance > 1:
-                    if child.left == gradchild: # LEFT LEFT
+                    if child.left == grandchild: # LEFT LEFT
                         if self.root == current:
                             self.root = child
                         if current.parent != None:
@@ -94,7 +89,7 @@ class AVLTree(BinarySearchTree):
                         current.parent = child
                         curr_node = child
                     else: # LEFT RIGHT
-                        if self.root == curent:
+                        if self.root == current:
                             self.root = grandchild
                         if current.parent != None:
                             if current.parent.left == current:
@@ -107,7 +102,7 @@ class AVLTree(BinarySearchTree):
                         grandchild.right = current
                         current.parent = grandchild
                         current.left = grandchild.right
-                        if curent.left != None:
+                        if current.left != None:
                             current.left.parent = current
                         child.right = grandchild.left
                         if child.right != None:
@@ -130,7 +125,7 @@ class AVLTree(BinarySearchTree):
                         current.paret = child
                         curr_node = child
                     else: # RIGHT LEFT
-                        if self.root == curent:
+                        if self.root == current:
                             self.root = grandchild
                         if current.parent != None:
                             if current.parent.left == current:
@@ -149,5 +144,5 @@ class AVLTree(BinarySearchTree):
                         if child.left != None:
                             child.left.parent = child
                         curr_node = grandchild
-        path.append(curr_node)
-        curr_node = curr_node.parent
+            path.append(curr_node)
+            curr_node = curr_node.parent
