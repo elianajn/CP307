@@ -57,6 +57,7 @@ class BinarySearchTree:
                         new_node.parent = current_node
                         self.current_size += 1
                         break
+        return new_node
 
     # Find and return the value associated with the given key
     def get(self, key):
@@ -162,6 +163,7 @@ class BinarySearchTree:
                 current.parent = None
                 self.root = current
         self.current_size -= 1
+        return removed
 
     def drawNode(self, draw, font, size, node, depth, node_number):
         number_nodes_layer = 2**depth
