@@ -9,3 +9,7 @@ http://cs.coloradocollege.edu/~mwhitehead/courses/2020_2021/CP307-DSA/syllabus.h
 5. linked lists, stacks, queues
 6. heap
 7. binary search tree
+8. AVL trees
+9. exam 1
+10. seam carving
+11. greedy algorithms 
