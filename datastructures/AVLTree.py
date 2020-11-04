@@ -89,22 +89,28 @@ class AVLTree(BinarySearchTree):
                         current.parent = child
                         curr_node = child
                     else: # LEFT RIGHT
+                        w = child.left
+                        x = grandchild.left
+                        y = grandchild.right
+                        z = current.right
+                        p = current.parent
+
                         if self.root == current:
                             self.root = grandchild
-                        if current.parent != None:
-                            if current.parent.left == current:
-                                current.parent.left = grandchild
+                        if p != None:
+                            if p.left == current:
+                                p.left = grandchild
                             else:
-                                current.parent.right = grandchild
-                        grandchild.parent = current.parent
+                                p.right = grandchild
+                        grandchild.parent = p
                         grandchild.left = child
                         child.parent = grandchild
                         grandchild.right = current
                         current.parent = grandchild
-                        current.left = grandchild.right
+                        current.left = y
                         if current.left != None:
                             current.left.parent = current
-                        child.right = grandchild.left
+                        child.right = x
                         if child.right != None:
                             child.right.parent = child
                         curr_node = grandchild
@@ -117,7 +123,7 @@ class AVLTree(BinarySearchTree):
                                 current.parent.left = child
                             else:
                                 current.parent.right = child
-                        child.parent = curret.parent
+                        child.parent = current.parent
                         current.right = child.left
                         if current.right != None:
                             current.right.parent = current
@@ -125,22 +131,28 @@ class AVLTree(BinarySearchTree):
                         current.paret = child
                         curr_node = child
                     else: # RIGHT LEFT
+                        w = child.left
+                        x = grandchild.left
+                        y = grandchild.right
+                        z = current.right
+                        p = current.parent
+
                         if self.root == current:
                             self.root = grandchild
-                        if current.parent != None:
-                            if current.parent.left == current:
-                                current.parent.left = grandchild
+                        if p != None:
+                            if p.left == current:
+                                p.left = grandchild
                             else:
-                                current.parent.right = grandchild
-                        grandchild.parent = current.parent
+                                p.right = grandchild
+                        grandchild.parent = p
                         grandchild.right = child
                         child.parent = grandchild
                         grandchild.left = current
                         current.parent = grandchild
-                        current.right = grandchild.right
-                        if curent.right != None:
+                        current.right = y
+                        if current.right != None:
                             current.right.parent = current
-                        child.left = grandchild.left
+                        child.left = x
                         if child.left != None:
                             child.left.parent = child
                         curr_node = grandchild

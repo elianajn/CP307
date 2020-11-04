@@ -18,6 +18,7 @@ class HashTable:
         if self.data[index] == None:
             self.data[index] = LinkedList()
         self.data[index].add((key,value))
+        self.current_size += 1
 
     def get(self, target_key):
         index = self.hashFunction(target_key)
@@ -41,6 +42,7 @@ class HashTable:
                     self.data[index] = None
                 return
             list_index += 1
+        self.current_size -= 1
         # ll.delete(list_index)
 
     def hasKey(self, target_key):
@@ -54,6 +56,7 @@ class HashTable:
         if list_index == ll.size()-1 and ll[list_index][0] != target_key:
             return False
         return True
+
 
 def main():
     ht = HashTable()
