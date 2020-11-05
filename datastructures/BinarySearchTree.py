@@ -169,7 +169,7 @@ class BinarySearchTree:
         number_nodes_layer = 2**depth
         interval = 1000 / number_nodes_layer
         x = int((node_number+1) * interval)
-        y = depth * 1000
+        y = depth * 100
 
         draw.ellipse((x, y, x+size, y+size), fill = "blue")
         draw.text((x+(size/3), y+(size/3)), str(node.key), font=font)
@@ -187,11 +187,11 @@ class BinarySearchTree:
             draw.line((x+size/2, y+size/2, next_right_x, next_y), fill = "black")
             self.drawNode(draw, font, size, node.right, depth+1, 2*node_number+2)
 
-    def saveImage(self, width=1000, height=800):
+    def saveImage(self, filename, width=1000, height=800):
         im   = Image.new("RGB", (width, height), "white")
         draw = ImageDraw.Draw(im)
         size = 50
         # font = ImageFont.truetype("FreeSans.ttf", int(size/2))
         font = ImageFont.load_default()
         self.drawNode(draw, font, size, self.root, 1, 0)
-        im.save("bst.jpg")
+        im.save(filename)

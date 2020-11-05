@@ -16,26 +16,6 @@ class AVLTree(BinarySearchTree):
         rightDepth = self.depthNode(node.right)
         return max(leftDepth, rightDepth)+1
 
-  # # Choose the larger one and add the root to it.
-  #       if leftDepth > rightDepth:
-  #           return leftDepth + 1
-  #       else:
-  #           return rightDepth + 1
-        # print("doing this")
-        # print(node)
-        # if node is None:
-        #     print("hello??")
-        #     return 0
-        # elif(node.left is None and node.right is None):
-        #     return 1
-        # else:
-        #     left_subtree_depth += depthNode(node.left)
-        #     right_subtree_depth += depthNode(node.right)
-        #     if (left_subtree_depth > right_subtree_depth):
-        #         return left_subtree_depth+1
-        #     else:
-        #         return right_subtree_depth+1
-
     def remove(self, key):
         removed = BinarySearchTree.delete(self, key)
         self.balanceTree(removed, remove=True)
@@ -47,8 +27,6 @@ class AVLTree(BinarySearchTree):
     def balanceTree(self, curr_node, remove=False):
         path = []
         while curr_node != None:
-            print(curr_node)
-            print(curr_node.parent)
             balance = self.getNodeBalance(curr_node)
             if len(path) > 1:
                 if remove:
@@ -82,7 +60,7 @@ class AVLTree(BinarySearchTree):
                             else:
                                 current.parent.right = child
                         child.parent = current.parent
-                        child.left = child.right
+                        current.left = child.right
                         if current.left != None:
                             current.left.parent = current
                         child.right = current

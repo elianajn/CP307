@@ -43,11 +43,15 @@ class SeamCarver:
 
     def getSeamPath(self):
         curr_row = self.rows-1
+        print(self.disruptions[curr_row, :])
         min_col = np.min(self.disruptions[curr_row, :])
         curr_col = np.where(self.disruptions[curr_row, :] == min_col)[0][0]
         seam = [curr_col]
         for curr_row in range(self.rows-2, -1, -1):
+            print("col ", curr_col)
             parents_start, parents_end = max(0, curr_col-1), min(self.cols-1, curr_col+2)
+            print(parents_start)
+            print(parents_end)
             min_parent = np.min(self.disruptions[curr_row-1, parents_start:parents_end])
             min_parent_index = np.where(self.disruptions[curr_row-1, parents_start:parents_end] == min_parent)[0][0]
             curr_col += min_parent_index - 1
