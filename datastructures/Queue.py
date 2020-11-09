@@ -27,6 +27,9 @@ class Queue:
         front = self.queue[0]
         return front
 
+    def size(self):
+        return self.current_size
+
 
 def main():
     s = Queue()

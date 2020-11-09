@@ -1,7 +1,7 @@
 from . LinkedList import LinkedList
 
 class HashTable:
-    def __init__(self, size=20):
+    def __init__(self, size=1971281):
         self.current_size = 0
         self.data = [None] * size # we want this to be statically sized
         self.array_size = size
@@ -23,9 +23,14 @@ class HashTable:
     def get(self, target_key):
         index = self.hashFunction(target_key)
         ll = self.data[index]
+        # print(ll.size())
         list_index = 0
+        # print("key: ", target_key)
         while list_index < ll.size() and ll[list_index][0] != target_key: #gets the index node
             list_index += 1
+        # print("list index: ", list_index)
+        # print("list size: ", ll.size())
+        # print(self.hasKey(target_key))
         value = ll[list_index][1] # what if it's not there?
         return value
 

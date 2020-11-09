@@ -3,44 +3,40 @@ import sys
 from PIL import Image
 import numpy as np
 from matplotlib import image
-from scipy.signal import convolve2d as scipy
+import scipy.signal
+from scipy.signal import convolve2d
 
+# got most of this from Matthew's video
 class SeamCarver:
 
     def __init__(self, filename):
         self.full_im = Image.open(filename)
-
-        # channel 2 mens only blue
         self.im = image.imread(filename)[:, :, 2]
         self.rows, self.cols = self.im.shape
 
-    def calculateSobelGradients(self):
-        horizontal_kernel = np.array([[-1, 0, 1],
-                                      [-2, 0, 2],
-                                      [-1, 0, 1]])
-        vertical_kernel = np.array  ([[-1, -2, -1],
-                                      [ 0,  0,  0],
-                                      [ 1,  2,  1]])
-        # stick this little nieghborhood on the image and multiply it by the
-        # blue intensities. a single value for a center pixel
-        # how much of an edge do i have
+    def gradients(self):
+        hkernel = np.array([[-1, 0, 1],
+                            [-2, 0, 2],
+                            [-1, 0, 1]])
 
-        horizontal_grads = scipy(self.im, horizontal_kernel, mode="same", boundary="symm")
-        vertical_grads = scipy(self.im, vertical_kernel, mode="same", boundary="symm")
-        # get a value of pixel importance
-        # edge pixels are more important
-        self.img_grads = np.sqrt(pow(horizontal_grads, 2.0) + pow(vertical_grads, 2.0))
+        vkernel = np.array([[-1, -2, -1],
+                            [0, 0, 0],
+                            [1, 2, 1]])
+        hgrads = convolve2d(self.im, hkernel, mode="same", boundary="symm")
+        vgrads = convolve2d(self.im, vkernel, mode="same", boundary="symm")
+
+        self.im_grads = np.sqrt(pow(hgrads, 2.0) + pow(vgrads, 2.0))
 
     def generateDisruptionMatrix(self):
-        #initialize matrix of zeros
         self.disruptions = np.zeros((self.rows, self.cols))
-        # set first row manually
-        self.disruptions[0, :] = self.img_grads[0, :]
+        self.disruptions[0,:] = self.im_grads[0,:]
+
         for row in range(1, self.rows):
             for col in range(self.cols):
                 parents_start, parents_end = max(0, col-1), min(self.cols-1, col+2)
-                self.disruptions[row, col] = np.min(self.disruptions[row-1, parents_start:parents_end]) + self.img_grads[row, col]
+                self.disruptions[row, col] = np.min(self.disruptions[row-1, parents_start:parents_end]) + self.im_grads[row, col]
 
+    # got this from Will Pasley
     def getSeamPath(self):
         curr_row = self.rows-1
         print(self.disruptions[curr_row, :])
@@ -55,22 +51,22 @@ class SeamCarver:
             min_parent = np.min(self.disruptions[curr_row-1, parents_start:parents_end])
             min_parent_index = np.where(self.disruptions[curr_row-1, parents_start:parents_end] == min_parent)[0][0]
             curr_col += min_parent_index - 1
-            seam.insert(0, curr_col)
+            seam.insert(0,curr_col)
         return seam
-
 
     def highlightSeam(self, seam):
         row = 0
         for col in seam:
-            self.full_im.putpixel((co, row), (255, 0 , 0))
+            self.full_im.putpixel((col, row), (255,0, 0))
             row += 1
-        self.full_im.save("new_image.pg")
-
+        self.full_im.save("new_image.png")
 
 
 if __name__ == "__main__":
+    # relative_filename = "city_street.png"
+    # @grader: please fill in your own path to dir below
     sc = SeamCarver(sys.argv[1])
-    sc.calculateSobelGradients()
+    sc.gradients()
     sc.generateDisruptionMatrix()
     seam = sc.getSeamPath()
     sc.highlightSeam(seam)

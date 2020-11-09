@@ -47,7 +47,8 @@ class LinkedList:
             return curr_node.data
         else:
             print("ERROR: ILLEGAL INDEX")
-            raise IndexError("Index %d out of bounds for list size: %d" % (target_index, self.size()))
+            indexErr = "Index %d out of bounds for list size: %d" % (target_index, self.size())
+            raise IndexError(indexErr)
 
 
     def delete(self, target_index):
