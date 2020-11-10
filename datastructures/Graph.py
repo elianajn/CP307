@@ -28,7 +28,9 @@ class Graph:
                 for line in file:
                     if line[0] == '#':
                         continue
-                    n1, n2 = (int(s) for s in line.split()) # https://stackoverflow.com/questions/7395047/what-are-python-implementation-of-nextint-hasnext-from-java
+                    n1s, n2s = line.split()
+                    n1 = int(n1s)
+                    n2 = int(n2s)
                     if not self.nodes.hasKey(n1):
                         self.nodes.put(n1, Node(n1))
                     if not self.nodes.hasKey(n2):
@@ -40,18 +42,19 @@ class Graph:
             file.close
 
     def findShortestPath(self, start, end):
+        starttime = time.perf_counter()
         visited = [False] * self.nodes.size()
         queue = Queue()
         queue.enqueue((start,[]))
         while queue.size() > 0:
             (node_id, path) = queue.dequeue()
-            visited[node_id] = True
-            path.append(node_id)
-            if node_id == end:
-                return path
-            node = self.nodes.get(node_id)
-            for neighbor in node.neighbors:
-                if not visited[neighbor]:
-                    queue.enqueue((neighbor, path))
-            # time.sleep(0.01)
+            if not visited[node_id]:
+                visited[node_id] = True
+                if node_id == end:
+                    endtime = time.perf_counter()
+                    print("BFS time: ", endtime-starttime)
+                    return path[:]+[node_id]
+                node = self.nodes.get(node_id)
+                for neighbor in node.neighbors:
+                    queue.enqueue((neighbor, path[:]+[node_id]))
         return []

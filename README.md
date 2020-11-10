@@ -15,4 +15,6 @@ http://cs.coloradocollege.edu/~mwhitehead/courses/2020_2021/CP307-DSA/syllabus.h
 11. greedy algorithms
 12. election day baby
 13. graphs - BFS
-14. recursive backtracking 
+14. recursive backtracking
+
+Final project - https://github.com/elianajn/CP307_FinalProject
