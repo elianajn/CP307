@@ -1,10 +1,11 @@
-from . LinkedList import LinkedList
+from LinkedList import LinkedList
 
 class HashTable:
-    def __init__(self, size=1971281):
+    def __init__(self, size=1001):
         self.current_size = 0
         self.data = [None] * size # we want this to be statically sized
         self.array_size = size
+        self.keys = []
 
     def size(self):
         return self.current_size
@@ -18,6 +19,7 @@ class HashTable:
         if self.data[index] == None:
             self.data[index] = LinkedList()
         self.data[index].add((key,value))
+        self.keys.append(key)
         self.current_size += 1
 
     def get(self, target_key):
@@ -33,6 +35,9 @@ class HashTable:
         # print(self.hasKey(target_key))
         value = ll[list_index][1] # what if it's not there?
         return value
+
+    def getKeys(self):
+        return self.keys
 
     def delete(self, target_key):
         index = self.hashFunction(target_key)
